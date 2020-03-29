@@ -32,7 +32,7 @@ class Task
     private $provider_name;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\DeveloperTask", mappedBy="task_id", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\DeveloperTask", mappedBy="task")
      */
     private $developerTask;
 
@@ -92,8 +92,8 @@ class Task
         $this->developerTask = $developerTask;
 
         // set the owning side of the relation if necessary
-        if ($developerTask->getTaskId() !== $this) {
-            $developerTask->setTaskId($this);
+        if ($developerTask->getTask() !== $this) {
+            $developerTask->setTask($this);
         }
 
         return $this;

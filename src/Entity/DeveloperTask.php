@@ -20,39 +20,39 @@ class DeveloperTask
      * @ORM\ManyToOne(targetEntity="App\Entity\Developer", inversedBy="developerTasks")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $developer_id;
+    private $developer;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Task", inversedBy="yes", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Task", inversedBy="developerTask", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $task_id;
+    private $task;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDeveloperId(): ?Developer
+    public function getDeveloper(): ?Developer
     {
-        return $this->developer_id;
+        return $this->developer;
     }
 
-    public function setDeveloperId(?Developer $developer_id): self
+    public function setDeveloper(?Developer $developer): self
     {
-        $this->developer_id = $developer_id;
+        $this->developer = $developer;
 
         return $this;
     }
 
-    public function getTaskId(): ?Task
+    public function getTask(): ?Task
     {
-        return $this->task_id;
+        return $this->task;
     }
 
-    public function setTaskId(Task $task_id): self
+    public function setTask(Task $task): self
     {
-        $this->task_id = $task_id;
+        $this->task = $task;
 
         return $this;
     }

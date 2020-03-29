@@ -29,7 +29,7 @@ class Developer
     private $level;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DeveloperTask", mappedBy="developer_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\DeveloperTask", mappedBy="developer")
      */
     private $developerTasks;
 
@@ -79,7 +79,7 @@ class Developer
     {
         if (!$this->developerTasks->contains($developerTask)) {
             $this->developerTasks[] = $developerTask;
-            $developerTask->setDeveloperId($this);
+            $developerTask->setDeveloper($this);
         }
 
         return $this;
@@ -90,8 +90,8 @@ class Developer
         if ($this->developerTasks->contains($developerTask)) {
             $this->developerTasks->removeElement($developerTask);
             // set the owning side to null (unless already changed)
-            if ($developerTask->getDeveloperId() === $this) {
-                $developerTask->setDeveloperId(null);
+            if ($developerTask->getDeveloper() === $this) {
+                $developerTask->setDeveloper(null);
             }
         }
 
