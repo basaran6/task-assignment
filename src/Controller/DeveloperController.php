@@ -28,7 +28,7 @@ class DeveloperController extends AbstractController
     }
 
     /**
-     * @Route("/developer/new", name="new_developer")
+     * @Route("/developer/new", name="developer_new")
      */
     public function new(Request $request)
     {
@@ -47,10 +47,12 @@ class DeveloperController extends AbstractController
         ]);
     }
 
+    
+
     /**
-     * @Route("/developer/{id}", name="developer_details")
+     * @Route("/developer/{id}", name="developer_show")
      */
-    public function detail($id)
+    public function show($id)
     {
         $developer = $this->repository->find($id);
         if(!$developer){
@@ -61,5 +63,26 @@ class DeveloperController extends AbstractController
             'developer' =>  $developer
         ]);
     }
+
+        /**
+     * @Route("/developer/{id}/edit", name="developer_edit")
+     */
+    public function edit(Request $request, Developer $developer)
+    {
+
+        $form = $this->createForm(DeveloperType::class, $developer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('developer');
+        }
+
+        return $this->render('developer/edit.html.twig', [
+            'developer' => $developer,
+            'developer_form' => $form->createView(),
+        ]);
+    }
+
 
 }
