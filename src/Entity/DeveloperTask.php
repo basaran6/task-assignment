@@ -28,6 +28,11 @@ class DeveloperTask
      */
     private $task;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sequence;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class DeveloperTask
     public function setTask(Task $task): self
     {
         $this->task = $task;
+
+        return $this;
+    }
+
+    public function getSequence(): ?int
+    {
+        return $this->sequence;
+    }
+
+    public function setSequence(int $sequence): self
+    {
+        $this->sequence = $sequence;
 
         return $this;
     }
