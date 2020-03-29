@@ -33,6 +33,11 @@ class Developer
      */
     private $developerTasks;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $weekly_working_hour = 45;
+
     public function __construct()
     {
         $this->developerTasks = new ArrayCollection();
@@ -94,6 +99,18 @@ class Developer
                 $developerTask->setDeveloper(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWeeklyWorkingHour(): ?int
+    {
+        return $this->weekly_working_hour;
+    }
+
+    public function setWeeklyWorkingHour(int $weekly_working_hour): self
+    {
+        $this->weekly_working_hour = $weekly_working_hour;
 
         return $this;
     }

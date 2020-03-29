@@ -15,6 +15,7 @@ class DeveloperType extends AbstractType
         $builder
             ->add('name')
             ->add('level')
+            ->add('weekly_working_hour')
             ->add('submit', SubmitType::class)
         ;
     }
