@@ -26,6 +26,8 @@ Eğer hem task verisi aktarılmak isteniyorsa hem de aktarılan tasklar develope
 bin/console app:get-task-from-providers --get-and-assign-tasks
 ```
 
+Atanan tasklar developers sayfasından boşa çıkartılabilir.
+
 # Ekran Görüntüleri
 
 # Boş Karşılama Ekranı
