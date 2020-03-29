@@ -2,7 +2,9 @@
 
 namespace App\Command;
 
+use App\Entity\Developer;
 use App\Entity\Task;
+use App\Service\BBAssignment\CustomAssignTask;
 use App\Service\BBProvider\ProviderServices\TaskProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,6 +32,7 @@ class TaskFromProviderCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln("Komut çalışmaya başladı.");
+        $entityManager = $this->container->get('doctrine')->getManager();
         $taskProvider = new TaskProvider();
         $output->writeln("Tasklar providerlardan almaya başladı.");
         $tasks = $taskProvider->getAllTasks();
@@ -38,7 +41,6 @@ class TaskFromProviderCommand extends Command
         $newTask = 0;
         $totalTask = count($tasks);
         foreach($tasks as $task){
-            $entityManager = $this->container->get('doctrine')->getManager();
             $taskEntity = $this->container->get('doctrine')->getRepository(Task::class)->findBy(array('task_id' => $task['id'], 'provider_name' => $task['provider_name']))[0] ?? null;
             if(!$taskEntity){
                 $taskEntity = new Task();
@@ -52,6 +54,20 @@ class TaskFromProviderCommand extends Command
             $entityManager->flush();
         }
         $output->writeln("$totalTask adet task için işlem yapıldı ve $newTask adet yeni task veritabanına kaydedildi.");
+
+        $output->writeln("İşler atanıyor.");
+        $customAssign = new CustomAssignTask(
+            $this->container->get('doctrine')->getRepository(Task::class),
+            $this->container->get('doctrine')->getRepository(Developer::class),
+            $entityManager
+        );
+        if($customAssign->assign()){
+            $output->writeln("İşler atandı");
+        }
+        else {
+            $output->writeln("İşler atanmadı!");
+        }
+
         $output->writeln("Komut çalışmayı tamamladı..");
     }
 }
