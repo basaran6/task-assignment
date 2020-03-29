@@ -114,4 +114,20 @@ class Developer
 
         return $this;
     }
+
+    public function getWeeklyTaskPoint()
+    {
+        return $this->getLevel() * $this->getWeeklyWorkingHour();
+    }
+    public function getTotalAssignedTaskPoint()
+    {
+        $assignedTasks = $this->getDeveloperTasks();
+        $taskPoints = 0;
+        foreach($assignedTasks as $assignedTask) {
+            $task = $assignedTask->getTask();
+            $taskPoint = $task->getLevel() * $task->getEstimatedDuration();
+            $taskPoints += $taskPoint;
+        }
+        return $taskPoints;
+    }
 }

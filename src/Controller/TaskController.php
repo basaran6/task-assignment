@@ -23,4 +23,16 @@ class TaskController extends AbstractController
             'tasks' => $tasks,
         ]);
     }
+
+    /**
+     * @Route("/task/unassign-all", name="task_unassign")
+     */
+    public function unassign()
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $q = $manager->createQuery('delete from  App\Entity\DeveloperTask');
+        $q->execute();
+        return $this->redirectToRoute('developer');
+    }
+    
 }

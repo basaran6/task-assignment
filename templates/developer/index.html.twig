@@ -4,20 +4,34 @@
 
 {% block body %}
 
+  <a href="/developer/new" class="btn btn-red">Create new developer</a>
+  <a href="/task/unassign-all" class="btn btn-red">Unassign all tasks</a>
+  
+  <a href="/developer/new" class="btn btn-red"></a>
   {% if developers %}
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Name</th>
           <th>Level</th>
+          <th>Weekly Working Hour</th>
+          <th>Assigned Task</th>
+          <th>Developer Weekly Max Point</th>
+          <th>Assigned Tasks Total Point</th>
+          <th>Task Completion Time(week)</th>
           <th>Details</th>
         </tr>
       </thead>
       <tbody>
         {%  for developer in developers %}
           <tr>
-            <td>{{ developer.name }}</td>
-            <td>{{ developer.level }}</td>
+            <td>{{ developer.getName() }}</td>
+            <td>{{ developer.getLevel() }}</td>
+            <td>{{ developer.getWeeklyWorkingHour() }}</td>
+            <td>{{ developer.getDeveloperTasks().count  }}</td>
+            <td>{{ developer.getWeeklyTaskPoint() }}</td>
+            <td>{{ developer.getTotalAssignedTaskPoint() }}</td>
+            <td>{{ developer.getTotalAssignedTaskPoint() / developer.getWeeklyTaskPoint() }}</td>
             <td>
               <a href="/developer/{{ developer.id }}/edit" class="btn btn-dark">Edit</a>
               <a href="/developer/{{ developer.id }}" class="btn btn-dark">List Tasks</a>
@@ -27,7 +41,7 @@
       </tbody>
     </table>
   {% else %}
-    <p>Articles yok</p>
+    <p>No developers.</p>
   {% endif %}
 
 {% endblock %}
