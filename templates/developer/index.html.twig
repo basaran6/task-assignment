@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title%} Developers {% endblock %}
+
+{% block body %}
+
+  {% if developers %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Level</th>
+          <th>Düzenle</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%  for developer in developers %}
+          <tr>
+            <td>{{ developer.name }}</td>
+            <td>{{ developer.level }}</td>
+            <td>
+              <a href="/developer/{{ developer.id }}" class="btn btn-dark">Düzenle</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Articles yok</p>
+  {% endif %}
+
+{% endblock %}
