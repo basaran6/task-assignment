@@ -35,6 +35,7 @@ Sistem ilk açıldığında tanımlı developer bulunmamaktadır. Developer tan�
 ![developer_ekleme](https://user-images.githubusercontent.com/15363846/77855219-af4ad800-71f7-11ea-9b17-3901a45f13a8.png)
 # Developer Listeleme Sayfası
 ![developer_list](https://user-images.githubusercontent.com/15363846/77855218-aeb24180-71f7-11ea-8a37-5b4b5856faa9.png)
+![tasks](https://user-images.githubusercontent.com/15363846/77855601-12d60500-71fa-11ea-9c54-3fa10b130aa7.png)
 # Developer Detay Sayfası
 ![developer_detail](https://user-images.githubusercontent.com/15363846/77855217-ae19ab00-71f7-11ea-88bd-7db263460fd5.png)
 # Task Listeleme Sayfası
