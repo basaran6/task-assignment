@@ -36,6 +36,11 @@ class Task
      */
     private $developerTask;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $task_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +95,18 @@ class Task
         if ($developerTask->getTaskId() !== $this) {
             $developerTask->setTaskId($this);
         }
+
+        return $this;
+    }
+
+    public function getTaskId(): ?string
+    {
+        return $this->task_id;
+    }
+
+    public function setTaskId(string $task_id): self
+    {
+        $this->task_id = $task_id;
 
         return $this;
     }
