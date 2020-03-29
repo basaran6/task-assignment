@@ -26,7 +26,7 @@ class Provider2Response extends ProviderAPIResponse implements IProviderAPIRespo
                 'id'    =>  $key,
                 'level' =>  $value[$key]['level'],
                 'estimated_duration' => $value[$key]['estimated_duration'],
-                'provider_key'  =>  $this->providerKey
+                'provider_name'  =>  $this->providerKey
             );
         }
         return $tasks;
