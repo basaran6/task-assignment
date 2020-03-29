@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title%} Tasks {% endblock %}
+
+{% block body %}
+
+  {% if tasks %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Level</th>
+          <th>Estimated Duration</th>
+          <th>Remote Task ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%  for task in tasks %}
+          <tr>
+            <td>{{ task.getProviderName() }}</td>
+            <td>{{ task.getLevel() }}</td>
+            <td>{{ task.getEstimatedDuration() }}</td>
+            <td>{{ task.getTaskID() }}</td>
+            <td>
+              <a href="/task/{{ task.id }}" class="btn btn-dark">Düzenle</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Articles yok</p>
+  {% endif %}
+
+{% endblock %}
