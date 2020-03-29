@@ -31,6 +31,11 @@ class Task
      */
     private $provider_name;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\DeveloperTask", mappedBy="task_id", cascade={"persist", "remove"})
+     */
+    private $developerTask;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,23 @@ class Task
     public function setProviderName(string $provider_name): self
     {
         $this->provider_name = $provider_name;
+
+        return $this;
+    }
+
+    public function getDeveloperTask(): ?DeveloperTask
+    {
+        return $this->developerTask;
+    }
+
+    public function setDeveloperTask(DeveloperTask $developerTask): self
+    {
+        $this->developerTask = $developerTask;
+
+        // set the owning side of the relation if necessary
+        if ($developerTask->getTaskId() !== $this) {
+            $developerTask->setTaskId($this);
+        }
 
         return $this;
     }

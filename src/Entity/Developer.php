@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Developer
      * @ORM\Column(type="integer")
      */
     private $level;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DeveloperTask", mappedBy="developer_id")
+     */
+    private $developerTasks;
+
+    public function __construct()
+    {
+        $this->developerTasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,37 @@ class Developer
     public function setLevel(int $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DeveloperTask[]
+     */
+    public function getDeveloperTasks(): Collection
+    {
+        return $this->developerTasks;
+    }
+
+    public function addDeveloperTask(DeveloperTask $developerTask): self
+    {
+        if (!$this->developerTasks->contains($developerTask)) {
+            $this->developerTasks[] = $developerTask;
+            $developerTask->setDeveloperId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeveloperTask(DeveloperTask $developerTask): self
+    {
+        if ($this->developerTasks->contains($developerTask)) {
+            $this->developerTasks->removeElement($developerTask);
+            // set the owning side to null (unless already changed)
+            if ($developerTask->getDeveloperId() === $this) {
+                $developerTask->setDeveloperId(null);
+            }
+        }
 
         return $this;
     }
