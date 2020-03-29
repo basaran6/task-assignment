@@ -10,7 +10,7 @@
         <tr>
           <th>Name</th>
           <th>Level</th>
-          <th>Düzenle</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -19,7 +19,8 @@
             <td>{{ developer.name }}</td>
             <td>{{ developer.level }}</td>
             <td>
-              <a href="/developer/{{ developer.id }}" class="btn btn-dark">Düzenle</a>
+              <a href="/developer/{{ developer.id }}" class="btn btn-dark">Edit</a>
+              <a href="/developer/{{ developer.id }}" class="btn btn-dark">List Tasks</a>
             </td>
           </tr>
         {% endfor %}

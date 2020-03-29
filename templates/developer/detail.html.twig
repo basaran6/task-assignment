@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div>
+    <h1>{{ developer.getName() }}</h1>
+    Developer Level: {{ developer.getlevel()}}
+    
+  {% if developer.getDeveloperTasks() %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Task ID</th>
+          <th>Task Level</th>
+          <th>Task Estimated Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%  for developerTask in developer.getDeveloperTasks() %}
+          <tr>
+            <td>{{ developerTask.getTask().getTaskID()}}</td>
+            <td>{{ developerTask.getTask().getLevel()}}</td>
+            <td>{{ developerTask.getTask().getEstimatedDuration()}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No task!</p>
+  {% endif %}
+    
+</div>
+{% endblock %}

@@ -47,4 +47,19 @@ class DeveloperController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/developer/{id}", name="developer_details")
+     */
+    public function detail($id)
+    {
+        $developer = $this->repository->find($id);
+        if(!$developer){
+            $this->addFlash('danger', "$id'li developer sistemde yok!");
+            return $this->redirectToRoute('developer');
+        }
+        return $this->render('developer/detail.html.twig', [
+            'developer' =>  $developer
+        ]);
+    }
+
 }
