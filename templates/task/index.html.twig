@@ -12,6 +12,7 @@
           <th>Level</th>
           <th>Estimated Duration</th>
           <th>Remote Task ID</th>
+          <th>Developer</th>
         </tr>
       </thead>
       <tbody>
@@ -21,9 +22,7 @@
             <td>{{ task.getLevel() }}</td>
             <td>{{ task.getEstimatedDuration() }}</td>
             <td>{{ task.getTaskID() }}</td>
-            <td>
-              <a href="/task/{{ task.id }}" class="btn btn-dark">Detail</a>
-            </td>
+            <td><a href="developer/{{task.developerTask.getDeveloper().getID() | default ('#')}}">{{ task.developerTask.getDeveloper().getName() | default('-') }}</a></td>
           </tr>
         {% endfor %}
       </tbody>

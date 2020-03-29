@@ -20,11 +20,11 @@ class CustomAssignTask extends AssignTask implements IAssignTask
             $developerTask = new DeveloperTask();
             $developerTask->setDeveloper($developer)->setTask($task)->setSequence($sequence);
             $this->entityManager->persist($developerTask);
+            $this->entityManager->flush();
             if($point > 0) {
                 $this->assignAppropriate($developer, $point, ++$sequence);
             }
         }
-        $this->entityManager->flush();
     }
 
     public function getTasks($sortCriteria ='DESC', $pointCriteria=false, $point=0)
@@ -36,7 +36,7 @@ class CustomAssignTask extends AssignTask implements IAssignTask
             $taskBaseQuery->where('t.level*t.estimated_duration <= :point');
             $taskBaseQuery->setParameter('point', $point);
         }
-        $taskBaseQuery->orderBy('t.level*t.estimated_duration', 'DESC');
+        $taskBaseQuery->orderBy('t.level*t.estimated_duration', $sortCriteria);
         $tasks = $taskBaseQuery->getQuery()->getResult();
         return $tasks;
     }

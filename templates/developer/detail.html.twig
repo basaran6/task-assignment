@@ -5,7 +5,9 @@
   <div>
     <h1>{{ developer.getName() }}</h1>
     Developer Level: {{ developer.getlevel()}}
-    
+    Weekly Working Hour: {{ developer.getWeeklyWorkingHour()}}
+  {% set week = 0 %}
+  {% set worked = 0 %}
   {% if developer.getDeveloperTasks() %}
     <table class="table table-striped">
       <thead>
@@ -13,15 +15,23 @@
           <th>Task ID</th>
           <th>Task Level</th>
           <th>Task Estimated Duration</th>
+          <th>Sequence</th>
+          <th>Week</th>
         </tr>
       </thead>
       <tbody>
         {%  for developerTask in developer.getDeveloperTasks() %}
+          {% set taskLevel = developerTask.getTask().getLevel() %}
+          {% set taskEstimatedDuration = developerTask.getTask().getEstimatedDuration() %}
+          {% set worked = worked + (taskLevel * taskEstimatedDuration) %}
           <tr>
             <td>{{ developerTask.getTask().getTaskID()}}</td>
-            <td>{{ developerTask.getTask().getLevel()}}</td>
-            <td>{{ developerTask.getTask().getEstimatedDuration()}}</td>
+            <td>{{ taskLevel }}</td>
+            <td>{{ taskEstimatedDuration }}</td>
+            <td>{{ developerTask.getSequence() }} <td>
+            <td>{{ week | round(0, 'floor') }}</td>
           </tr>
+          {% set week = (worked / (developer.getLevel() * developer.getWeeklyWorkingHour()))  %}
         {% endfor %}
       </tbody>
     </table>
